@@ -9,20 +9,6 @@ import { verifyToken, verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
-router.get("/checkToken", verifyToken, (req, res, next) => {
-  res.send("You are logged in");
-});
-
-router.get("/verifyUser/:id", verifyUser, (req, res, next) => {
-  res.send("You are logged in and you can delete and update access");
-});
-
-router.get("/verifyAdmin/:id", verifyAdmin, (req, res, next) => {
-  res.send(
-    "You are logged in and you can delete and update access for all accounts"
-  );
-});
-
 router.put("/:id", verifyUser, updateUser);
 
 router.delete("/:id", verifyUser, deleteUser);
