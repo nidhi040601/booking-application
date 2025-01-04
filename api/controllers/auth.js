@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { errorGenerator } from "../utils/errorGenerator.js";
+import jwt from "jsonwebtoken";
 
 export const register = async (req, res, next) => {
   const salt = bcrypt.genSaltSync(10);
@@ -38,7 +39,15 @@ export const login = async (req, res, next) => {
 
     const { password, isAdmin, ...otherUserDetails } = user._doc;
 
-    res.status(200).json({ ...otherUserDetails });
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT_SECRET
+    );
+
+    res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(200)
+      .json({ ...otherUserDetails });
   } catch (error) {
     return next(error);
   }
