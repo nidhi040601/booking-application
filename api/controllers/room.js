@@ -57,8 +57,8 @@ const deleteRoom = async (req, res, next) => {
 
 const getRoom = async (req, res, next) => {
   try {
-    const Room = await Room.findById(req.params.id);
-    res.status(200).json(Room);
+    const room = await Room.findById(req.params.id);
+    res.status(200).json(room);
   } catch (error) {
     return next(error);
   }
@@ -66,8 +66,8 @@ const getRoom = async (req, res, next) => {
 
 const getAllRooms = async (req, res, next) => {
   try {
-    const Rooms = await Room.find();
-    res.status(200).json(Rooms);
+    const rooms = await Room.find();
+    res.status(200).json(rooms);
   } catch (error) {
     return next(error);
   }
