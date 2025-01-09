@@ -59,7 +59,6 @@ const Searchbar = () => {
         backgroundColor: "white",
         border: "1px solid rbga(235, 197, 28)",
         borderRadius: 5,
-        mx: 10,
         my: 2,
       }}
     >
