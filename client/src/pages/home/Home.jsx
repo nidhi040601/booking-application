@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <Box sx={{ px: 10, pt: 3, pb: 5 }}>
+      <Box sx={{ px: 25, pt: 3, pb: 5 }}>
         <Featured />
         <PropertyList />
         <FeaturedProperties />

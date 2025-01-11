@@ -7,7 +7,7 @@ const Footer = () => {
         display: "flex",
         flexDirection: "column",
         backgroundColor: "rgb(51, 117, 222)",
-        px: 11,
+        px: 26,
         py: 3,
       }}
     >

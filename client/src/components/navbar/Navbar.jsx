@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ px: 10, py: 3 }}>
+      <AppBar position="static" sx={{ px: 25, py: 3 }}>
         <Toolbar>
           <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
             Roomzy
