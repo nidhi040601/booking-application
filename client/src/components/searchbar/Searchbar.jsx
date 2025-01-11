@@ -1,6 +1,5 @@
 import {
   Box,
-  Input,
   TextField,
   Button,
   Menu,
@@ -9,11 +8,9 @@ import {
   ListItemText,
   List,
   Stack,
-  Icon,
   Typography,
   Toolbar,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { SingleInputDateRangeField } from "@mui/x-date-pickers-pro/SingleInputDateRangeField";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
@@ -56,10 +53,7 @@ const Searchbar = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "white",
-        border: "1px solid rbga(235, 197, 28)",
-        borderRadius: 5,
-        my: 2,
+        mt: 2,
       }}
     >
       <Toolbar>
@@ -67,9 +61,21 @@ const Searchbar = () => {
           id="outlined-basic"
           placeholder="What are you looking for?"
           variant="outlined"
-          sx={{ flexGrow: 2, mr: 1 }}
+          sx={{
+            flexGrow: 2,
+            backgroundColor: "white",
+            border: "3px solid rgba(235, 197, 28)",
+            borderRadius: 2,
+          }}
         />
-        <Box sx={{ flexGrow: 1, mr: 1 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            backgroundColor: "white",
+            border: "3px solid rgba(235, 197, 28)",
+            borderRadius: 2,
+          }}
+        >
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateRangePicker
               sx={{ width: "100%" }}
@@ -79,7 +85,14 @@ const Searchbar = () => {
             />
           </LocalizationProvider>
         </Box>
-        <Box sx={{ flexGrow: 1, mr: 1 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            backgroundColor: "white",
+            border: "3px solid rgba(235, 197, 28)",
+            borderRadius: 2,
+          }}
+        >
           <TextField
             value={`${searchOptionsValue.Adults} Adult . ${searchOptionsValue.Children} Children . ${searchOptionsValue.Rooms} Rooms`}
             id="search-option"
@@ -120,7 +133,17 @@ const Searchbar = () => {
             </MenuItem>
           </Menu>
         </Box>
-        <Button variant="contained">Search</Button>
+        <Button
+          sx={{
+            border: "3px solid rgba(235, 197, 28)",
+            borderRadius: 2,
+            height: "60px",
+          }}
+          variant="contained"
+          size="large"
+        >
+          Search
+        </Button>
       </Toolbar>
     </Box>
   );

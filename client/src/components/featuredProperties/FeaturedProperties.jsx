@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   CardMedia,
-  ImageList,
   Stack,
   Typography,
 } from "@mui/material";
@@ -39,65 +38,70 @@ const FeaturedProperties = () => {
   ];
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "380px",
-        overflow: "hidden",
-        margin: "auto",
-        display: "flex",
-        flexDirection: "column",
-        pt: 2,
-      }}
-    >
-      <Stack
-        direction="row"
-        spacing={2}
+    <>
+      <Typography variant="h6" fontWeight={700} sx={{ px: 3 }}>
+        Home that you may love
+      </Typography>
+      <Box
         sx={{
-          height: "100%",
+          height: "380px",
           overflow: "hidden",
+          margin: "auto",
+          display: "flex",
+          flexDirection: "column",
+          py: 2,
+          px: 3,
         }}
       >
-        {featuredData.map((item) => (
-          <Card
-            sx={{
-              overflow: "hidden",
-              height: "100%",
-              flex: 1,
-            }}
-          >
-            <CardMedia sx={{ height: "65%" }} image={`${item.img}`} />
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            height: "100%",
+            overflow: "visible",
+          }}
+        >
+          {featuredData.map((item) => (
+            <Card
+              sx={{
+                overflow: "hidden",
+                height: "100%",
+                flex: 1,
+              }}
+            >
+              <CardMedia sx={{ height: "65%" }} image={`${item.img}`} />
 
-            <CardContent>
-              <Typography variant="subtitle1" fontWeight="bolder">
-                Aparthone Hotel
-              </Typography>
-              <Typography variant="subtitle2" fontWeight={300}>
-                Madrid
-              </Typography>
-              <Typography variant="subtitle2" fontWeight={500}>
-                Starting from $120
-              </Typography>
-              <Box
-                display="flex"
-                alignItems="center"
-                // justifyContent="space-around"
-                gap={1}
-              >
-                <Button
-                  size="small"
-                  variant="contained"
-                  sx={{ p: 0, fontWeight: "bold" }}
+              <CardContent>
+                <Typography variant="subtitle1" fontWeight="bolder">
+                  Aparthone Hotel
+                </Typography>
+                <Typography variant="subtitle2" fontWeight={300}>
+                  Madrid
+                </Typography>
+                <Typography variant="subtitle2" fontWeight={500}>
+                  Starting from $120
+                </Typography>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  // justifyContent="space-around"
+                  gap={1}
                 >
-                  9.9
-                </Button>
-                <span style={{ fontSize: "14px" }}>Excellent</span>
-              </Box>
-            </CardContent>
-          </Card>
-        ))}
-      </Stack>
-    </Box>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    sx={{ p: 0, fontWeight: "bold" }}
+                  >
+                    9.9
+                  </Button>
+                  <span style={{ fontSize: "14px" }}>Excellent</span>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+        </Stack>
+      </Box>
+    </>
   );
 };
 

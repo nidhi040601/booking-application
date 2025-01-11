@@ -2,6 +2,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useState } from "react";
+import Searchbar from "../searchbar/Searchbar";
 
 const Navbar = () => {
   const [selectedTab, changeSelectedTab] = useState("stays");
@@ -41,6 +42,7 @@ const Navbar = () => {
         <Typography sx={{ px: 2.5, pt: 1 }} variant="body1">
           Open an account and get 15% off on your first booking!
         </Typography>
+        <Searchbar />
       </AppBar>
     </Box>
   );

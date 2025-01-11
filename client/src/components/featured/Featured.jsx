@@ -1,10 +1,4 @@
-import {
-  Box,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
-  Typography,
-} from "@mui/material";
+import { Box, ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 
 const Featured = () => {
   const featuredData = [
@@ -38,12 +32,12 @@ const Featured = () => {
   return (
     <Box
       sx={{
-        width: "100%",
         height: 300,
         overflow: "hidden",
         margin: "auto",
         display: "flex",
         flexDirection: "column",
+        px: 3,
       }}
     >
       <ImageList
@@ -52,7 +46,7 @@ const Featured = () => {
         sx={{
           height: "100%",
           borderRadius: 5,
-          overflowY: "hidden",
+          overflow: "hidden",
         }}
       >
         {featuredData.map((item) => (

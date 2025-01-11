@@ -1,4 +1,10 @@
-import { Box, ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
+import {
+  Box,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Typography,
+} from "@mui/material";
 
 const PropertyList = () => {
   const featuredData = [
@@ -30,62 +36,67 @@ const PropertyList = () => {
   ];
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: 200,
-        overflow: "hidden",
-        margin: "auto",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <ImageList
-        cols={5}
-        gap={15}
+    <>
+      <Typography variant="h6" fontWeight={700} sx={{ px: 3 }}>
+        Browse your property type
+      </Typography>
+      <Box
         sx={{
-          height: "100%",
+          height: 200,
           overflow: "hidden",
+          margin: "auto",
+          display: "flex",
+          flexDirection: "column",
+          px: 3,
         }}
       >
-        {featuredData.map((item) => (
-          <ImageListItem
-            sx={{
-              overflow: "hidden",
-              height: "100%",
-              flex: 1,
-            }}
-          >
-            <img
-              srcSet={`${item.img}`}
-              src={`${item.img}`}
-              alt={item.title}
-              loading="lazy"
-              style={{
-                width: "100%",
-                height: "70%",
-                objectFit: "cover",
-                borderRadius: 10,
-              }}
-            />
-
-            <ImageListItemBar
+        <ImageList
+          cols={5}
+          gap={15}
+          sx={{
+            height: "100%",
+            overflow: "hidden",
+          }}
+        >
+          {featuredData.map((item) => (
+            <ImageListItem
               sx={{
-                "& .MuiImageListItemBar-title": {
-                  fontSize: "20px",
-                  fontWeight: "bolder",
-                  pb: 1,
-                },
+                overflow: "hidden",
+                height: "100%",
                 flex: 1,
               }}
-              title={item.title}
-              subtitle={item.subTitle}
-              position="below"
-            ></ImageListItemBar>
-          </ImageListItem>
-        ))}
-      </ImageList>
-    </Box>
+            >
+              <img
+                srcSet={`${item.img}`}
+                src={`${item.img}`}
+                alt={item.title}
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  height: "70%",
+                  objectFit: "cover",
+                  borderRadius: 10,
+                }}
+              />
+
+              <ImageListItemBar
+                sx={{
+                  "& .MuiImageListItemBar-title": {
+                    fontSize: "20px",
+                    fontWeight: "bolder",
+                    pb: 1,
+                  },
+                  flex: 1,
+                }}
+                title={item.title}
+                subtitle={item.subTitle}
+                position="below"
+              ></ImageListItemBar>
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </Box>
+    </>
   );
 };
 
