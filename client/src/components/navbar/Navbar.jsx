@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useState } from "react";
 import Searchbar from "../searchbar/Searchbar";
+import { Link } from "react-router";
 
 const Navbar = () => {
   const [selectedTab, changeSelectedTab] = useState("stays");
@@ -15,9 +16,12 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ px: 25, py: 2 }}>
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-            Roomzy
-          </Typography>
+          <Link
+            to="/"
+            style={{ flexGrow: 1, color: "inherit", textDecoration: "none" }}
+          >
+            <Typography variant="h4">Roomzy</Typography>
+          </Link>
           <Button variant="outlined" color="white" sx={{ mr: 1 }}>
             Login
           </Button>

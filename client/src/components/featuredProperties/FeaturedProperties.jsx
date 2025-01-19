@@ -7,6 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import useFetch from "../../hooks/useFetch";
 
 const FeaturedProperties = () => {
   const featuredData = [
@@ -37,6 +38,10 @@ const FeaturedProperties = () => {
     // },
   ];
 
+  const { data, loading, error } = useFetch(
+    "http://localhost:3001/api/hotels?featured=true"
+  );
+
   return (
     <>
       <Typography variant="h6" fontWeight={700} sx={{ px: 3 }}>
@@ -53,53 +58,63 @@ const FeaturedProperties = () => {
           px: 3,
         }}
       >
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{
-            height: "100%",
-            overflow: "visible",
-          }}
-        >
-          {featuredData.map((item) => (
-            <Card
-              sx={{
-                overflow: "hidden",
-                height: "100%",
-                flex: 1,
-              }}
-            >
-              <CardMedia sx={{ height: "65%" }} image={`${item.img}`} />
+        {loading ? (
+          "Loading please wait"
+        ) : (
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+              height: "100%",
+              overflow: "visible",
+            }}
+          >
+            {data.map((item) => (
+              <Card
+                sx={{
+                  overflow: "hidden",
+                  height: "100%",
+                  flex: 1,
+                }}
+              >
+                <CardMedia sx={{ height: "65%" }} image={`${item.photos[0]}`} />
 
-              <CardContent>
-                <Typography variant="subtitle1" fontWeight="bolder">
-                  Aparthone Hotel
-                </Typography>
-                <Typography variant="subtitle2" fontWeight={300}>
-                  Madrid
-                </Typography>
-                <Typography variant="subtitle2" fontWeight={500}>
-                  Starting from $120
-                </Typography>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  // justifyContent="space-around"
-                  gap={1}
-                >
-                  <Button
-                    size="small"
-                    variant="contained"
-                    sx={{ p: 0, fontWeight: "bold" }}
+                <CardContent>
+                  <Typography variant="subtitle1" fontWeight="bolder">
+                    {item.name}
+                  </Typography>
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight={300}
+                    sx={{ textTransform: "capitalize" }}
                   >
-                    9.9
-                  </Button>
-                  <span style={{ fontSize: "14px" }}>Excellent</span>
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
-        </Stack>
+                    {item.city}
+                  </Typography>
+                  <Typography variant="subtitle2" fontWeight={500}>
+                    Starting from {item.cheapestPrice}
+                  </Typography>
+                  {item.rating && (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      // justifyContent="space-around"
+                      gap={1}
+                    >
+                      <Button
+                        size="small"
+                        variant="contained"
+                        sx={{ p: 0, fontWeight: "bold" }}
+                      >
+                        {item.rating}
+                      </Button>
+                      <span style={{ fontSize: "14px" }}>Excellent</span>
+                    </Box>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </Stack>
+        )}
       </Box>
     </>
   );

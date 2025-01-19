@@ -6,6 +6,7 @@ import hotelRouter from "./routes/hotels.js";
 import roomRouter from "./routes/rooms.js";
 import userRouter from "./routes/users.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
@@ -22,6 +23,7 @@ const connect = async () => {
 };
 
 //middlewares
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
@@ -42,7 +44,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   connect();
   console.log("Connected.");
 });

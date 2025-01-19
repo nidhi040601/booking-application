@@ -5,6 +5,7 @@ import {
   ImageListItemBar,
   Typography,
 } from "@mui/material";
+import useFetch from "../../hooks/useFetch";
 
 const PropertyList = () => {
   const featuredData = [
@@ -35,6 +36,10 @@ const PropertyList = () => {
     },
   ];
 
+  const { data, loading, error } = useFetch(
+    "http://localhost:3001/api/hotels/countByType"
+  );
+
   return (
     <>
       <Typography variant="h6" fontWeight={700} sx={{ px: 3 }}>
@@ -50,51 +55,56 @@ const PropertyList = () => {
           px: 3,
         }}
       >
-        <ImageList
-          cols={5}
-          gap={15}
-          sx={{
-            height: "100%",
-            overflow: "hidden",
-          }}
-        >
-          {featuredData.map((item) => (
-            <ImageListItem
-              sx={{
-                overflow: "hidden",
-                height: "100%",
-                flex: 1,
-              }}
-            >
-              <img
-                srcSet={`${item.img}`}
-                src={`${item.img}`}
-                alt={item.title}
-                loading="lazy"
-                style={{
-                  width: "100%",
-                  height: "70%",
-                  objectFit: "cover",
-                  borderRadius: 10,
-                }}
-              />
-
-              <ImageListItemBar
+        {loading ? (
+          "Loading please wait"
+        ) : (
+          <ImageList
+            cols={5}
+            gap={15}
+            sx={{
+              height: "100%",
+              overflow: "hidden",
+            }}
+          >
+            {featuredData.map((item, index) => (
+              <ImageListItem
                 sx={{
-                  "& .MuiImageListItemBar-title": {
-                    fontSize: "20px",
-                    fontWeight: "bolder",
-                    pb: 1,
-                  },
+                  overflow: "hidden",
+                  height: "100%",
                   flex: 1,
                 }}
-                title={item.title}
-                subtitle={item.subTitle}
-                position="below"
-              ></ImageListItemBar>
-            </ImageListItem>
-          ))}
-        </ImageList>
+              >
+                <img
+                  srcSet={`${item.img}`}
+                  src={`${item.img}`}
+                  alt={item.title}
+                  loading="lazy"
+                  style={{
+                    width: "100%",
+                    height: "70%",
+                    objectFit: "cover",
+                    borderRadius: 10,
+                  }}
+                />
+
+                <ImageListItemBar
+                  sx={{
+                    "& .MuiImageListItemBar-title": {
+                      fontSize: "17px",
+                      fontWeight: "bolder",
+                      pb: 1,
+                      textTransform: "capitalize",
+                    },
+                    flex: 1,
+                  }}
+                  title={data[index]?.type}
+                  subtitle={data[index]?.count + " " + data[index]?.type}
+                  position="below"
+                ></ImageListItemBar>
+              </ImageListItem>
+            ))}
+          </ImageList>
+        )}
       </Box>
     </>
   );

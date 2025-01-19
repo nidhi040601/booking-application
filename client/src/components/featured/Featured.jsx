@@ -1,4 +1,5 @@
 import { Box, ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
+import useFetch from "../../hooks/useFetch";
 
 const Featured = () => {
   const featuredData = [
@@ -29,6 +30,10 @@ const Featured = () => {
     },
   ];
 
+  const { data, loading, error } = useFetch(
+    "http://localhost:3001/api/hotels/countByCity?cities=london,Vadodara,dublin"
+  );
+
   return (
     <Box
       sx={{
@@ -40,54 +45,58 @@ const Featured = () => {
         px: 3,
       }}
     >
-      <ImageList
-        cols={5}
-        gap={15}
-        sx={{
-          height: "100%",
-          borderRadius: 5,
-          overflow: "hidden",
-        }}
-      >
-        {featuredData.map((item) => (
-          <ImageListItem
-            sx={{
-              borderRadius: 5,
-              overflow: "hidden",
-              height: "100%",
-              position: "relative",
-            }}
-          >
-            <img
-              srcSet={`${item.img}`}
-              src={`${item.img}`}
-              alt={item.title}
-              loading="lazy"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-            />
-
-            <ImageListItemBar
+      {loading ? (
+        "Loading please wait"
+      ) : (
+        <ImageList
+          cols={5}
+          gap={15}
+          sx={{
+            height: "100%",
+            borderRadius: 5,
+            overflow: "hidden",
+          }}
+        >
+          {featuredData.map((item, index) => (
+            <ImageListItem
               sx={{
-                "& .MuiImageListItemBar-title": {
-                  fontSize: "28px",
-                  pb: 1,
-                },
-                background:
-                  "linear-gradient(to bottom, rgba(255,255,255 ,0) , " +
-                  "rgba(255,255,255 ,0.3)  , rgba(255,255,255,0.7) )",
-                flex: 1,
-                fontWeight: "bolder",
+                borderRadius: 5,
+                overflow: "hidden",
+                height: "100%",
+                position: "relative",
               }}
-              title={item.title}
-              subtitle={item.subTitle}
-            ></ImageListItemBar>
-          </ImageListItem>
-        ))}
-      </ImageList>
+            >
+              <img
+                srcSet={`${item.img}`}
+                src={`${item.img}`}
+                alt={item.title}
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+
+              <ImageListItemBar
+                sx={{
+                  "& .MuiImageListItemBar-title": {
+                    fontSize: "28px",
+                    pb: 1,
+                  },
+                  background:
+                    "linear-gradient(to bottom, rgba(255,255,255 ,0) , " +
+                    "rgba(255,255,255 ,0.3)  , rgba(255,255,255,0.7) )",
+                  flex: 1,
+                  fontWeight: "bolder",
+                }}
+                title={item.title}
+                subtitle={data[index] + " properties"}
+              ></ImageListItemBar>
+            </ImageListItem>
+          ))}
+        </ImageList>
+      )}
     </Box>
   );
 };
