@@ -59,6 +59,7 @@ const Featured = () => {
         >
           {featuredData.map((item, index) => (
             <ImageListItem
+              key={index}
               sx={{
                 borderRadius: 5,
                 overflow: "hidden",

@@ -71,6 +71,7 @@ const FeaturedProperties = () => {
           >
             {data.map((item) => (
               <Card
+                key={item._id}
                 sx={{
                   overflow: "hidden",
                   height: "100%",

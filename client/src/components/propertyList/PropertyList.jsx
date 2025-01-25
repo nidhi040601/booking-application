@@ -68,6 +68,7 @@ const PropertyList = () => {
           >
             {featuredData.map((item, index) => (
               <ImageListItem
+                key={index}
                 sx={{
                   overflow: "hidden",
                   height: "100%",

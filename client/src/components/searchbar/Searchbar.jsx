@@ -15,17 +15,18 @@ import { SingleInputDateRangeField } from "@mui/x-date-pickers-pro/SingleInputDa
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider/LocalizationProvider";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useNavigate } from "react-router";
+import { SearchContext } from "../../context/SearchContext";
 
 const Searchbar = () => {
   const navigate = useNavigate();
 
   const [destination, setDestination] = useState("");
   const [dateRange, setDateRange] = useState([dayjs(Date()), dayjs(Date())]);
-  console.log(dayjs(Date()).toISOString());
+  // console.log(dayjs(Date()).toISOString());
 
   const searchOptions = ["Adults", "Children", "Rooms"];
   const [searchOptionsValue, setSearchOptionsValue] = useState({
@@ -54,7 +55,17 @@ const Searchbar = () => {
     setSearchOptionsValue(updatedOptionValues);
   };
 
+  const { dispatch } = useContext(SearchContext);
+
   const handleSearch = () => {
+    dispatch({
+      type: "NEW_SEARCH",
+      payload: {
+        city: destination,
+        dates: dateRange,
+        options: searchOptionsValue,
+      },
+    });
     navigate("/hotels", {
       state: { destination, dateRange, searchOptionsValue },
     });
@@ -146,7 +157,7 @@ const Searchbar = () => {
           <MenuItem>
             <List>
               {searchOptions.map((item) => (
-                <ListItem>
+                <ListItem key={item}>
                   <ListItemText sx={{ pr: 2 }}>{item}</ListItemText>
                   <Stack direction="row" spacing={1} sx={{ display: "flex" }}>
                     <AddCircleOutlineIcon

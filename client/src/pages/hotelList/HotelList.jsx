@@ -15,6 +15,7 @@ import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider/LocalizationProvider";
 import dayjs from "dayjs";
 import SearchItem from "../../components/searchItem/SearchItem";
+import useFetch from "../../hooks/useFetch";
 
 const FromInputBig = styled(TextField)({
   marginTop: 5,
@@ -58,8 +59,8 @@ const HotelList = () => {
     location.state.searchOptionsValue
   );
   //Add validation
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(undefined);
+  const [maxPrice, setMaxPrice] = useState(undefined);
 
   const handleSearchOptionChange = (event, optionName) => {
     const updatedSearchOptionValue = event.target.value;
@@ -70,6 +71,16 @@ const HotelList = () => {
     };
 
     setSearchOptions(updatedSearchOptions);
+  };
+
+  const { data, loading, error, reFetch } = useFetch(
+    `http://localhost:3001/api/hotels?city=${destination}&min=${
+      minPrice || 0
+    }&max=${maxPrice || 999}`
+  );
+
+  const handleSearchButtonClick = () => {
+    reFetch();
   };
 
   return (
@@ -205,17 +216,25 @@ const HotelList = () => {
               />
             </Stack>
           </Stack>
-          <Button variant="contained" size="large" sx={{ width: "100%" }}>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ width: "100%" }}
+            onClick={handleSearchButtonClick}
+          >
             Search
           </Button>
         </Box>
         <Box sx={{ flexGrow: 7 }}>
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
+          {loading ? (
+            "Loading please wait.."
+          ) : (
+            <>
+              {data.map((item) => (
+                <SearchItem item={item} key={item._id} />
+              ))}
+            </>
+          )}
         </Box>
       </Box>
     </>

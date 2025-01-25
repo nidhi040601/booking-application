@@ -1,16 +1,22 @@
 import { AppBar, Box, Button, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Searchbar from "../searchbar/Searchbar";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const [selectedTab, changeSelectedTab] = useState("stays");
+  const navigate = useNavigate();
+
+  const [selectedTab, changeSelectedTab] = useState("Stays");
 
   const handleTabChange = (event, newValue) => {
     changeSelectedTab(newValue);
   };
+
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -22,12 +28,25 @@ const Navbar = () => {
           >
             <Typography variant="h4">Roomzy</Typography>
           </Link>
-          <Button variant="outlined" color="white" sx={{ mr: 1 }}>
-            Login
-          </Button>
-          <Button variant="outlined" color="white">
-            Register
-          </Button>
+          {user ? (
+            <div>{user.username}</div>
+          ) : (
+            <Box>
+              <Button
+                variant="outlined"
+                color="white"
+                sx={{ mr: 1 }}
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login
+              </Button>
+              <Button variant="outlined" color="white">
+                Register
+              </Button>
+            </Box>
+          )}
         </Box>
 
         <Tabs
@@ -37,10 +56,10 @@ const Navbar = () => {
           value={selectedTab}
           sx={{ pt: 1 }}
         >
-          <Tab label="Stays"></Tab>
-          <Tab label="Flights"></Tab>
-          <Tab label="Car Rentals"></Tab>
-          <Tab label="Attractions"></Tab>
+          <Tab label="Stays" value={"Stays"}></Tab>
+          <Tab label="Flights" value={"Flights"}></Tab>
+          <Tab label="Car Rentals" value={"Car Rentals"}></Tab>
+          <Tab label="Attractions" value={"Attractions"}></Tab>
         </Tabs>
         <Typography sx={{ pt: 1 }} variant="h5">
           One solution for all your stays
